@@ -1,8 +1,8 @@
 # `/cleanup` — macOS Deep Clean for Claude Code
 
-> One command. Gigabytes back. Zero risk to your actual files.
+> Scans first. Shows you everything. Deletes nothing until you say go.
 
-Your Mac accumulates **gigabytes** of cache junk from browsers, editors, package managers, and apps you forgot you had. This Claude Code skill wipes it all in seconds — safely.
+Your Mac accumulates **gigabytes** of cache junk from browsers, editors, package managers, and apps you forgot you had. This Claude Code skill finds it all, shows you a full breakdown with sizes, and only deletes what you explicitly approve.
 
 ## What it cleans
 
@@ -17,7 +17,7 @@ Your Mac accumulates **gigabytes** of cache junk from browsers, editors, package
 | **Media** | Spotify persistent cache |
 | **Containers** | Docker dangling images and build cache (only if daemon is idle) |
 
-After cleaning, it deep-scans for remaining space hogs over 500 MB and asks before touching them.
+Every run scans every category first and shows you a candidate table with sizes — nothing is deleted until you approve it (all of it, or just a subset). After the approved deletions run, it deep-scans for remaining space hogs over 500 MB and asks separately before touching those too.
 
 ## What it NEVER touches
 
@@ -27,31 +27,40 @@ After cleaning, it deep-scans for remaining space hogs over 500 MB and asks befo
 - Credentials — Keychain, SSH keys, GPG keys, tokens, `.env` files
 - Dev environments — git repos, `node_modules`, nvm versions
 - Anything not on the explicit allow-list — **it doesn't improvise**
+- Anything you didn't explicitly approve — **it never deletes before asking**
 
 ## Example output
 
 ```
 📊 Disk before: 42 GB available of 460 GB
 
-🧹 Cleaning...
+🔍 Scanning cleanup candidates (nothing deleted yet)...
 
-| Category           | Freed    |
-|--------------------|----------|
-| User Caches        | 3.2 GB   |
-| User Logs          | 180 MB   |
-| npm / npx          | 420 MB   |
-| Homebrew           | 890 MB   |
-| pip                | 65 MB    |
-| VS Code            | 310 MB   |
-| Cursor             | 275 MB   |
-| Claude Desktop     | 140 MB   |
-| Chrome             | 520 MB   |
-| Spotify            | 1.1 GB   |
-| Slack              | 380 MB   |
-| Discord            | 210 MB   |
-| Docker             | 2.4 GB   |
-| System caches      | 450 MB   |
-| .DS_Store files    | 2 MB     |
+| Category           | Reclaimable |
+|--------------------|-------------|
+| User Caches        | 3.2 GB      |
+| User Logs          | 180 MB      |
+| npm / npx          | 420 MB      |
+| Homebrew           | 890 MB      |
+| pip                | 65 MB       |
+| VS Code            | 310 MB      |
+| Cursor             | 275 MB      |
+| Claude Desktop     | 140 MB      |
+| Chrome             | 520 MB      |
+| Spotify            | 1.1 GB      |
+| Slack              | 380 MB      |
+| Discord            | 210 MB      |
+| Docker             | 2.4 GB      |
+| System caches      | 450 MB      |
+| .DS_Store files    | 2 MB        |
+
+Total reclaimable: 10.5 GB
+
+Delete all of the above? (or name the categories to skip)
+
+> yes
+
+🧹 Cleaning approved categories...
 
 ✅ Total freed: 10.5 GB
 📊 Disk after: 52.5 GB available of 460 GB
